@@ -27,6 +27,7 @@ public class JoystickPlayerExample : MonoBehaviour
 
     private void Update()
     {
+
         Face.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
@@ -34,8 +35,20 @@ public class JoystickPlayerExample : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        rigid.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        if (variableJoystick.Vertical > 0 || variableJoystick.Horizontal > 0)
+        {
+            Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
+            rigid.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+
+        }
+        else
+        {
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+            rigid.AddForce(new Vector3(h, 0, v) * 0.1f * speed, ForceMode.Impulse);
+        }
+
+
     }
 
     public void GetItemCall()
