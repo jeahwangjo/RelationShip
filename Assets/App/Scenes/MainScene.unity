@@ -4288,6 +4288,7 @@ MonoBehaviour:
   - Level2
   - Level3
   - Level4
+  CurrentLevel: 0
 --- !u!4 &1997486079
 Transform:
   m_ObjectHideFlags: 0
