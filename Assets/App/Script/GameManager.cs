@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EasyButtons;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,12 +35,19 @@ public class GameManager : MonoBehaviour
         LevelLoadComplete();
         FindItems();
     }
+
     public void LevelComplete()
     {
         CurrentLevel++;
+        LoadLevel();
+    }
+    [Button]
+    public void LoadLevel()
+    {
         if (CurrentLevel < Scenelevel.Length)
             SceneManager.LoadScene(Scenelevel[CurrentLevel]);
     }
+
     private void LevelLoadComplete()
     {
         player.transform.position = GameObject.FindWithTag("Respawn").transform.position;

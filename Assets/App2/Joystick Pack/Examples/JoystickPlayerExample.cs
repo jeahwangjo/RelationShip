@@ -47,8 +47,7 @@ public class JoystickPlayerExample : MonoBehaviour
         }
         if (transform.position.y < -1)
         {
-            SceneManager.LoadScene("Level1");
-            Locator.GetService<GameManager>().CurrentLevel = 0;
+            Locator.GetService<GameManager>().LoadLevel();
         }
     }
 
