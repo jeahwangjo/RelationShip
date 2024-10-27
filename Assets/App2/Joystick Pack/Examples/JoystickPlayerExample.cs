@@ -48,6 +48,7 @@ public class JoystickPlayerExample : MonoBehaviour
         if (transform.position.y < -1)
         {
             SceneManager.LoadScene("Level1");
+            Locator.GetService<GameManager>().CurrentLevel = 0;
         }
     }
 
@@ -58,13 +59,10 @@ public class JoystickPlayerExample : MonoBehaviour
         if (FaceChangeTimeWait != null)
             StopCoroutine(FaceChangeTimeWait);
         FaceChangeTimeWait = StartCoroutine(FaceTimeChange());
-
-
     }
 
     IEnumerator FaceTimeChange()
     {
-
         yield return new WaitForSeconds(0.7f);
         Face.gameObject.GetComponent<MeshRenderer>().material.mainTexture = Sleep;
         FaceChangeTimeWait = null;

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public int CurrentItemCount;
 
     public string[] Scenelevel;
-    private int currentLevel = 0;
+    public int CurrentLevel = 0;
 
     private void Awake()
     {
@@ -36,9 +36,9 @@ public class GameManager : MonoBehaviour
     }
     public void LevelComplete()
     {
-        currentLevel++;
-        if (currentLevel < Scenelevel.Length)
-            SceneManager.LoadScene(Scenelevel[currentLevel]);
+        CurrentLevel++;
+        if (CurrentLevel < Scenelevel.Length)
+            SceneManager.LoadScene(Scenelevel[CurrentLevel]);
     }
     private void LevelLoadComplete()
     {
