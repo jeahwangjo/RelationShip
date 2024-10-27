@@ -10,8 +10,15 @@ public class GameManager : MonoBehaviour
     private GameObject[] DontDestroyObject;
     [SerializeField]
     private GameObject player;
+    [HideInInspector]
+    public int CurrentItemCount;
+
+    public string[] Scenelevel;
+    private int currentLevel = 0;
+
     private void Awake()
     {
+        Locator.RegisterService(this);
         foreach (var item in DontDestroyObject)
         {
             DontDestroyOnLoad(item);
@@ -22,16 +29,25 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += NextLevel;
         SceneManager.LoadScene("Level1");
     }
-    private void Update()
-    {
-
-    }
     private void NextLevel(Scene arg0, LoadSceneMode arg1)
     {
-        NextLevel();
+        LevelLoadComplete();
+        FindItems();
     }
-    private void NextLevel()
+    public void LevelComplete()
+    {
+        currentLevel++;
+        if (currentLevel < Scenelevel.Length)
+            SceneManager.LoadScene(Scenelevel[currentLevel]);
+    }
+    private void LevelLoadComplete()
     {
         player.transform.position = GameObject.FindWithTag("Respawn").transform.position;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Locator.GetService<JoystickPlayerExample>().itemCount = 0;
+    }
+    private void FindItems()
+    {
+        CurrentItemCount = GameObject.FindGameObjectsWithTag("Item").Length;
     }
 }

@@ -4282,6 +4282,12 @@ MonoBehaviour:
   - {fileID: 805786394}
   - {fileID: 2086577953}
   player: {fileID: 1747595798}
+  CurrentItemCount: 0
+  Scenelevel:
+  - Level1
+  - Level2
+  - Level3
+  - Level4
 --- !u!4 &1997486079
 Transform:
   m_ObjectHideFlags: 0

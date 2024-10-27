@@ -20,6 +20,7 @@ public class JoystickPlayerExample : MonoBehaviour
 
     private void Awake()
     {
+        Locator.RegisterService(this);
         rigid = GetComponent<Rigidbody>();
         DontDestroyOnLoad(gameObject);
     }
@@ -29,7 +30,6 @@ public class JoystickPlayerExample : MonoBehaviour
         Face.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
-
     }
 
     public void FixedUpdate()
@@ -38,7 +38,6 @@ public class JoystickPlayerExample : MonoBehaviour
         {
             Vector3 direction = Vector3.forward * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
             rigid.AddForce(direction * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
-
         }
         else
         {
@@ -59,6 +58,8 @@ public class JoystickPlayerExample : MonoBehaviour
         if (FaceChangeTimeWait != null)
             StopCoroutine(FaceChangeTimeWait);
         FaceChangeTimeWait = StartCoroutine(FaceTimeChange());
+
+
     }
 
     IEnumerator FaceTimeChange()
@@ -68,7 +69,6 @@ public class JoystickPlayerExample : MonoBehaviour
         Face.gameObject.GetComponent<MeshRenderer>().material.mainTexture = Sleep;
         FaceChangeTimeWait = null;
     }
-
 
     public void Jump()
     {
@@ -85,10 +85,12 @@ public class JoystickPlayerExample : MonoBehaviour
         {
             isJump = false;
         }
-
-        if (other.gameObject.name == "Goal")
+        Debug.Log($"JoystickPlayerExample :: OnCollisionEnter :: Locator.GetService<GameManager>().CurrentItemCount : {Locator.GetService<GameManager>().CurrentItemCount}");
+        Debug.Log($"JoystickPlayerExample :: OnCollisionEnter :: itemCount : {itemCount}");
+        if (other.gameObject.name == "Goal"
+            && Locator.GetService<GameManager>().CurrentItemCount <= itemCount)
         {
-            SceneManager.LoadScene("Level2");
+            Locator.GetService<GameManager>().LevelComplete();
         }
     }
 
@@ -96,7 +98,7 @@ public class JoystickPlayerExample : MonoBehaviour
     {
         if (other.tag.Equals("DeadZone"))
         {
-            SceneManager.LoadScene("Level1");
+
         }
     }
 }
