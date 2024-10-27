@@ -24,13 +24,12 @@ public class JoystickPlayerExample : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
     private void Update()
     {
-
         Face.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
+
     }
 
     public void FixedUpdate()
@@ -47,8 +46,10 @@ public class JoystickPlayerExample : MonoBehaviour
             float v = Input.GetAxisRaw("Vertical");
             rigid.AddForce(new Vector3(h, 0, v) * 0.1f * speed, ForceMode.Impulse);
         }
-
-
+        if (transform.position.y < -1)
+        {
+            SceneManager.LoadScene("Level1");
+        }
     }
 
     public void GetItemCall()

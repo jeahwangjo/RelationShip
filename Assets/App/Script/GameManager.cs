@@ -17,15 +17,15 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(item);
         }
     }
-
     private void Start()
     {
         SceneManager.sceneLoaded += NextLevel;
         SceneManager.LoadScene("Level1");
     }
+    private void Update()
+    {
 
-
-
+    }
     private void NextLevel(Scene arg0, LoadSceneMode arg1)
     {
         NextLevel();
