@@ -11,8 +11,6 @@ public class TestManager : MonoBehaviour
     private void MoveLevel()
     {
         var sceneLevelManager = Locator.GetService<SceneLevelManager>();
-        sceneLevelManager.UnLoadLevel();
-        sceneLevelManager.CurrentLevel = Mathf.Abs(selectLevel - 1);
-        sceneLevelManager.LoadLevel();
+        sceneLevelManager.SelectLevelLoad(Mathf.Abs(selectLevel - 1));
     }
 }

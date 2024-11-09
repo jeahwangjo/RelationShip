@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     {
         var sceneLevelManager = Locator.GetService<SceneLevelManager>();
         sceneLevelManager.CurrentLevel = 0;
-        sceneLevelManager.LoadLevel();
+        sceneLevelManager.LevelReload();
     }
 
 }

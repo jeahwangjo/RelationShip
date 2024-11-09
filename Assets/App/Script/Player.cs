@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     Coroutine FaceChangeTimeWait;
     [SerializeField] Texture Sleep;
     [SerializeField] Texture GetItem;
+    public bool IsLevelLoading;
     #region [=== Unity===]
     private void Awake()
     {
@@ -17,9 +18,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         Face.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
-        if (transform.position.y < -1)
+        if (transform.position.y < -1 && IsLevelLoading == false)
         {
-            Locator.GetService<SceneLevelManager>().LoadLevel();
+            IsLevelLoading = true;
+            Locator.GetService<SceneLevelManager>().LevelReload();
             GetComponent<PlayerMove>().Initialized();
         }
     }
@@ -33,7 +35,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.name == "Goal"
             && Locator.GetService<SceneLevelManager>().CurrentItemCount <= itemCount)
         {
-            Locator.GetService<SceneLevelManager>().LevelComplete();
+            Locator.GetService<SceneLevelManager>().MoveNextLevel();
         }
     }
     private void OnTriggerEnter(Collider other)
